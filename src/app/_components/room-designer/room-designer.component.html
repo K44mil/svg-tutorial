@@ -1,0 +1,18 @@
+<div class="room-designer">
+    <svg 
+    [attr.width]="this.roomWidth"
+    [attr.height]="this.roomHeight" 
+    [attr.viewBox]="this.viewBox" 
+    id="svgElement"
+    (mouseup)="onSvgMouseClick($event)"
+    (mousemove)="onSvgMouseMove($event)">
+
+    <rect *ngFor="let desk of desks" 
+    [attr.x]="desk.positionX" 
+    [attr.y]="desk.positionY" 
+    [attr.width]="desk.length" 
+    [attr.height]="desk.width"
+    (mousedown)="onRectMousClick($event, desk)" />
+
+    </svg>
+</div>
