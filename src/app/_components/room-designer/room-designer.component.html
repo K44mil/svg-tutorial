@@ -4,15 +4,46 @@
     [attr.height]="this.roomHeight" 
     [attr.viewBox]="this.viewBox" 
     id="svgElement"
-    (mouseup)="onSvgMouseClick($event)"
-    (mousemove)="onSvgMouseMove($event)">
+    (mouseup)="onSvgMouseUp($event)"
+    (mousemove)="onSvgMouseMove($event)"
+    (mouseleave)="onSvgMouseLeave($event)">
 
+    <!-- Only desks -->
+
+    <!-- <g *ngFor="let desk of desks">
+        <circle *ngIf="desk.employeeId !== -1"
+        [attr.cx]="desk.positionX+100"
+        [attr.cy]="desk.positionY+100"
+        [attr.r]="30"
+        fill="black">
+        </circle>
+    </g> -->
+    
+
+    <rect *ngFor="let desk of desks"
+    [attr.x]="desk.positionX+50"
+    [attr.y]="desk.positionY+50"
+    [attr.width]="desk.width"
+    [attr.height]="desk.height"
+    stroke="black"
+    stroke-width="5"
+    rx="15"
+    fill="brown"> 
+    </rect>
+
+    
     <rect *ngFor="let desk of desks" 
     [attr.x]="desk.positionX" 
     [attr.y]="desk.positionY" 
-    [attr.width]="desk.length" 
-    [attr.height]="desk.width"
-    (mousedown)="onRectMousClick($event, desk)" />
+    [attr.width]="spaceWidth" 
+    [attr.height]="spaceHeight"
+    [attr.fill]="desk.collide === 0 ? 'green' : 'red'"
+    fill-opacity="0.1"
+    (mousedown)="onRectMouseDown($event, desk)">
+        <title>
+            NAZWA PRACOWNIKA
+        </title>
+    </rect>
 
     </svg>
 </div>

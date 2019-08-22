@@ -1,0 +1,14 @@
+svg {
+  border: 1px solid darksalmon;
+  display: block;
+  margin: 10px auto;
+}
+rect {
+  cursor: pointer;
+}
+.free-place {
+  fill: green;
+}
+.busy-place {
+  fill: red;
+}
