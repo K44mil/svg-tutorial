@@ -1,7 +1,7 @@
 <div class="room-designer">
     <svg 
-    [attr.width]="400"
-    [attr.height]="400" 
+    [attr.width]="this.roomWidth"
+    [attr.height]="this.roomHeight" 
     [attr.viewBox]="this.viewBox" 
     id="svgElement"
     (mouseup)="onSvgMouseUp($event)"
@@ -19,26 +19,66 @@
         </circle>
     </g>
     
+    <g *ngFor="let desk of desks">
 
-    <rect *ngFor="let desk of desks"
-    [attr.x]="desk.positionX"
-    [attr.y]="desk.positionY"
-    [attr.width]="desk.width"
-    [attr.height]="desk.height"
-    stroke="black"
-    stroke-width="5"
-    rx="15"
-    fill="brown"> 
-    </rect>
+        <!-- front to left -->
+        <rect *ngIf="desk.direction === 1" 
+        [attr.x]="desk.positionX"
+        [attr.y]="desk.positionY"
+        [attr.width]="desk.height"
+        [attr.height]="desk.width"
+        stroke="black"
+        stroke-width="5"
+        rx="15"
+        fill="brown"> 
+        </rect>
 
-    
+        <!-- front to top -->
+        <rect *ngIf="desk.direction === 2"
+        [attr.x]="desk.positionX"
+        [attr.y]="desk.positionY"
+        [attr.width]="desk.width"
+        [attr.height]="desk.height"
+        stroke="black"
+        stroke-width="5"
+        rx="15"
+        fill="brown"> 
+        </rect>
+
+        <!-- front to right -->
+        <rect *ngIf="desk.direction === 3"
+        [attr.x]="desk.positionX + 80"
+        [attr.y]="desk.positionY"
+        [attr.width]="desk.height"
+        [attr.height]="desk.width"
+        stroke="black"
+        stroke-width="5"
+        rx="15"
+        fill="brown"> 
+        </rect>
+
+        <!-- front to bottom -->
+        <rect *ngIf="desk.direction === 4"
+        [attr.x]="desk.positionX"
+        [attr.y]="desk.positionY + 80"
+        [attr.width]="desk.width"
+        [attr.height]="desk.height"
+        stroke="black"
+        stroke-width="5"
+        rx="15"
+        fill="brown"> 
+        </rect>
+
+
+    </g>   
+
     <rect *ngFor="let desk of desks" 
     [attr.x]="desk.positionX-25" 
     [attr.y]="desk.positionY-25" 
     [attr.width]="spaceWidth" 
     [attr.height]="spaceHeight"
     [attr.fill]="desk.collide === 0 ? 'green' : 'red'"
-    fill-opacity="0.1"
+    fill-opacity="0.5"
     (mousedown)="onRectMouseDown($event, desk)">
         <title>
             NAZWA PRACOWNIKA
