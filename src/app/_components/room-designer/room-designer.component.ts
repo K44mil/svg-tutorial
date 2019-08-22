@@ -100,7 +100,8 @@ export class RoomDesignerComponent implements OnInit {
 
       // correct position if out of the svg
       this.correctDesksPositions();
-      
+      // detect collision
+      this.correctDesksCollisions();
       // // print space rect borders coords
       // console.log('-----------------------RECT BORDERS-----------------------------------');
       // console.log('%cSelected desk: ' + this.selectedDesk, 'color: red; font-weight: bold');
@@ -166,38 +167,55 @@ export class RoomDesignerComponent implements OnInit {
 
   correctDesksCollisions(): void {
     for(let i = 0; i < this.desks.length; i++) {
-      for(let j = i; j < this.desks.length; j++) {
+      for(let j = 0; j < this.desks.length; j++) {
         
         const deskI = this.desks[i];
         const deskJ = this.desks[j];
-        // spaces ---Desk I---
-        const sideSpaceDeskI = (this.spaceWidth - deskI.width)/2;
-        const topSpaceDeskI = sideSpaceDeskI;
-        const bottomSpaceDeskI = (this.spaceHeight - (topSpaceDeskI + deskI.height));
-        // ---Desk J---
-        const sideSpaceDeskJ = (this.spaceWidth - deskJ.width)/2;
-        const topSpaceDeskJ = sideSpaceDeskJ;
-        const bottomSpaceDeskJ = (this.spaceHeight - (topSpaceDeskJ + deskJ.height));
 
         // space border Desk I
-        const spaceBorderLeftI = deskI.positionX - sideSpaceDeskI;
-        const spaceBorderTopI = deskI.positionY - topSpaceDeskI;
-        const spaceBorderRightI = deskI.positionX + deskI.width + sideSpaceDeskI;
-        const spaceBorderBottomI = deskI.positionY + deskI.height + bottomSpaceDeskI;
+        const spaceBorderLeftI = deskI.positionX - (this.spaceWidth - deskI.width)/2;
+        const spaceBorderTopI = deskI.positionY - (this.spaceWidth - deskI.width)/2;
+        const spaceBorderRightI = deskI.positionX + deskI.width + (this.spaceWidth - deskI.width)/2;
+        const spaceBorderBottomI = deskI.positionY + deskI.height + (this.spaceHeight - ((this.spaceWidth - deskI.width)/2 + deskI.height));;
 
         // space border Desk J
-        const spaceBorderLeftJ = deskJ.positionX - sideSpaceDeskJ;
-        const spaceBorderTopJ = deskJ.positionY - topSpaceDeskJ;
-        const spaceBorderRightJ = deskJ.positionX + deskJ.width + sideSpaceDeskJ;
-        const spaceBorderBottomJ = deskJ.positionY + deskJ.height + bottomSpaceDeskJ;
+        const spaceBorderLeftJ = deskJ.positionX - (this.spaceWidth - deskJ.width)/2;
+        const spaceBorderTopJ = deskJ.positionY - (this.spaceWidth - deskJ.width)/2;
+        const spaceBorderRightJ = deskJ.positionX + deskJ.width + (this.spaceWidth - deskJ.width)/2;
+        const spaceBorderBottomJ = deskJ.positionY + deskJ.height + (this.spaceHeight - ((this.spaceWidth - deskJ.width)/2 + deskJ.height));;
 
         if (deskI.id === deskJ.id) {
           continue;
         }
 
-        console.log(
-          spaceBorderTopI > spaceBorderTopJ && (spaceBorderBottomI > spaceBorderBottomJ && spaceBorderBottomI < spaceBorderTopJ) 
-        );
+        // collision detect
+        if (((spaceBorderTopI <= spaceBorderTopJ && (spaceBorderBottomI <= spaceBorderBottomJ && spaceBorderBottomI >= spaceBorderTopJ)) ||
+            (spaceBorderBottomI >= spaceBorderBottomJ && (spaceBorderTopI >= spaceBorderTopJ && spaceBorderTopI <= spaceBorderBottomJ))) &&
+            ((spaceBorderLeftI  <= spaceBorderLeftJ && (spaceBorderRightI <= spaceBorderRightJ && spaceBorderRightI >= spaceBorderLeftJ) ||
+            (spaceBorderRightI >= spaceBorderRightJ && (spaceBorderLeftI >= spaceBorderLeftJ && spaceBorderLeftI <= spaceBorderRightJ))))) {
+              deskI.collide = 1;
+            } else {
+              deskI.collide = 0;
+            }
+
+        // console.log(
+        //    'Top I: ' + spaceBorderTopI + 
+        //    '\nTop J: ' + spaceBorderTopJ +
+        //    '\nBottom I: ' + spaceBorderBottomI +
+        //    '\nBottom J: ' + spaceBorderBottomJ +
+        //    '\nLeft I: ' + spaceBorderLeftI +
+        //    '\nLeft J: ' + spaceBorderLeftJ +
+        //    '\nRight I: ' + spaceBorderRightI +
+        //    '\nRight J: ' + spaceBorderRightJ 
+        // );
+        
+        // console.log(
+        //   `%c${((spaceBorderTopI < spaceBorderTopJ && (spaceBorderBottomI < spaceBorderBottomJ && spaceBorderBottomI > spaceBorderTopJ)) || // same level
+        //        (spaceBorderBottomI > spaceBorderBottomJ && (spaceBorderTopI > spaceBorderTopJ && spaceBorderTopI < spaceBorderBottomJ))) &&
+        //        ((spaceBorderLeftI  < spaceBorderLeftJ && (spaceBorderRightI < spaceBorderRightJ && spaceBorderRightI > spaceBorderLeftJ) ||
+        //        (spaceBorderRightI > spaceBorderRightJ && (spaceBorderLeftI > spaceBorderLeftJ && spaceBorderLeftI < spaceBorderRightJ))))}`,
+        //   'color: green; font-weight: 900;'
+        // )
 
       }
     }
