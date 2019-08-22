@@ -5,6 +5,7 @@ export class Desk {
     width: number;
     positionX: number;
     positionY: number;
+    positionAngle: number; // 1 - left, 2 - top, 3 - right, 4 - bottom
     collide: number;
     employeeId: number;
     roomId: number;
@@ -15,9 +16,10 @@ export class Desk {
         width: number,
         positionX: number,
         positionY: number,
+        positionAngle: number,
+        collide: number,
         employeeId: number,
-        roomId: number,
-        collide: number
+        roomId: number
     ) {
         this.id = id;
         this.height = height;
@@ -27,6 +29,7 @@ export class Desk {
         this.employeeId = employeeId;
         this.roomId = roomId;
         this.collide = collide;
+        this.positionAngle = positionAngle;
     }
 
 }

@@ -1,7 +1,7 @@
 <div class="room-designer">
     <svg 
-    [attr.width]="this.roomWidth"
-    [attr.height]="this.roomHeight" 
+    [attr.width]="400"
+    [attr.height]="400" 
     [attr.viewBox]="this.viewBox" 
     id="svgElement"
     (mouseup)="onSvgMouseUp($event)"
@@ -10,19 +10,19 @@
 
     <!-- Only desks -->
 
-    <!-- <g *ngFor="let desk of desks">
+    <g *ngFor="let desk of desks">
         <circle *ngIf="desk.employeeId !== -1"
-        [attr.cx]="desk.positionX+100"
-        [attr.cy]="desk.positionY+100"
+        [attr.cx]="desk.positionX+75"
+        [attr.cy]="desk.positionY+70"
         [attr.r]="30"
         fill="black">
         </circle>
-    </g> -->
+    </g>
     
 
     <rect *ngFor="let desk of desks"
-    [attr.x]="desk.positionX+50"
-    [attr.y]="desk.positionY+50"
+    [attr.x]="desk.positionX"
+    [attr.y]="desk.positionY"
     [attr.width]="desk.width"
     [attr.height]="desk.height"
     stroke="black"
@@ -33,8 +33,8 @@
 
     
     <rect *ngFor="let desk of desks" 
-    [attr.x]="desk.positionX" 
-    [attr.y]="desk.positionY" 
+    [attr.x]="desk.positionX-25" 
+    [attr.y]="desk.positionY-25" 
     [attr.width]="spaceWidth" 
     [attr.height]="spaceHeight"
     [attr.fill]="desk.collide === 0 ? 'green' : 'red'"
