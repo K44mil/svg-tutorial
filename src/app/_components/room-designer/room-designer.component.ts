@@ -134,8 +134,8 @@ export class RoomDesignerComponent implements OnInit {
     selectedDeskBorders = selectedDeskBorders.matrixTransform(svgSvgElement.getScreenCTM().inverse());
     point = point.matrixTransform(svgSvgElement.getScreenCTM().inverse());
 
-    this.selectedDeskPoint.x = point.x - selectedDeskBorders.x - 25; // 25 because of space
-    this.selectedDeskPoint.y = point.y - selectedDeskBorders.y - 25;
+    this.selectedDeskPoint.x = Math.floor(point.x - selectedDeskBorders.x - 25); // 25 because of space
+    this.selectedDeskPoint.y = Math.floor(point.y - selectedDeskBorders.y - 25);
 
     this.selectedDeskElement = svgElement;
 

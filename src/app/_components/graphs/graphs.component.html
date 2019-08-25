@@ -1,0 +1,41 @@
+<div class="graphs-svg">
+    <svg
+    [attr.width]="600"
+    [attr.height]="600"
+    viewBox="0 0 600 600"
+    id="svgGraphsElement"
+    (dblclick)="drawNewCircle($event)">
+        
+    <line *ngFor="let line of lines"
+    [attr.x1]="line.x1"
+    [attr.x2]="line.x2"
+    [attr.y1]="line.y1"
+    [attr.y2]="line.y2"
+    stroke="red"
+    stroke-width="2">
+
+    </line>
+
+
+    <g *ngFor="let circle of circles">
+        <circle 
+        [attr.cx]="circle.cx"
+        [attr.cy]="circle.cy"
+        [attr.r]="circle.r"
+        fill="black"
+        (click)="selectCircle($event, circle.id)">
+        </circle>
+
+        <circle *ngIf="this.selectedCircle && this.selectedCircle.id === circle.id"
+        [attr.cx]="circle.cx"
+        [attr.cy]="circle.cy"
+        [attr.r]="circle.r"
+        fill="green"
+        stroke="aquamarine"
+        stroke-width="4"
+        (click)="selectCircle($event, circle.id)">
+        </circle>
+    </g>  
+
+    </svg>
+</div>
