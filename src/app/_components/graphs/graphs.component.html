@@ -1,10 +1,26 @@
+
+<div class="menu">
+    <div class="row">
+        <div class="col-12 col-md-3">
+            <button class="btn btn-warning form-control" (click)="reset()">RESET</button>
+        </div>
+    </div>
+    
+</div>
+
+<div style="text-align: center">
+    <p>{{ modeText }}</p>
+</div>
+
 <div class="graphs-svg">
     <svg
     [attr.width]="600"
     [attr.height]="600"
     viewBox="0 0 600 600"
     id="svgGraphsElement"
-    (dblclick)="drawNewCircle($event)">
+    (dblclick)="drawNewCircle($event)"
+    (mousemove)="onSvgMouseMove($event)"
+    (mouseup)="onSvgMouseUp($event)">
         
     <line *ngFor="let line of lines"
     [attr.x1]="line.x1"
@@ -23,7 +39,8 @@
         [attr.cy]="circle.cy"
         [attr.r]="circle.r"
         fill="black"
-        (click)="selectCircle($event, circle.id)">
+        (click)="selectCircle($event, circle.id)"
+        (mousedown)="onCircleMouseDown($event, circle.id)">
         </circle>
 
         <circle *ngIf="this.selectedCircle && this.selectedCircle.id === circle.id"
@@ -35,6 +52,14 @@
         stroke-width="4"
         (click)="selectCircle($event, circle.id)">
         </circle>
+
+        <!-- <text
+        font-size="24"
+        fill="white"
+        font-family="Arial"
+        [attr.x]="circle.cx-7"
+        [attr.y]="circle.cy+7">{{ circle.id }}
+        </text> -->
     </g>  
 
     </svg>
