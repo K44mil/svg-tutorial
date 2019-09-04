@@ -43,7 +43,7 @@ export class GraphsComponent implements OnInit {
 
         point = point.matrixTransform(svgSvgElement.getScreenCTM().inverse());
 
-        this.createNewCircle(point.x, point.y, 15);
+        this.createNewCircle(point.x, point.y, 5);
       }
     }
   }

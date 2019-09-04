@@ -1,0 +1,30 @@
+<div class="graphs-svg">
+    <svg
+    [attr.width]="600"
+    [attr.height]="600"
+    viewBox="0 0 600 600"
+    id="svgGraphsElement">
+    
+    <!-- <line *ngFor="let line of lines"
+    [attr.id]="line.id"
+    [attr.x1]="line.x1"
+    [attr.y1]="line.y1"
+    [attr.x2]="line.x2"
+    [attr.y2]="line.y2"
+    stroke="black"
+    stroke-width="6">
+    </line> -->
+
+    <rect *ngFor="let rect of rectangles"
+    [attr.x]="rect.x"
+    [attr.y]="rect.y"
+    [attr.width]="rect.width"
+    [attr.height]="rect.height"
+    [attr.fill]="rect.fill">
+
+    </rect>
+
+    </svg>
+
+    <button class="btn btn-info" style="display: block; margin: 0 auto;" (click)="autoSort()">SORT</button>
+</div>
