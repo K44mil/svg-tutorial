@@ -1,0 +1,42 @@
+<div class="graphs-svg">
+    <svg
+    [attr.width]="600"
+    [attr.height]="600"
+    viewBox="0 0 600 600"
+    id="svgGraphsElement"
+    (click)="onClickBoard($event)">
+        
+    <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7"/>
+        </marker>
+    </defs>
+
+    <line *ngFor="let line of lines"
+    [attr.x1]="line.x1"
+    [attr.x2]="line.x2"
+    [attr.y1]="line.y1"
+    [attr.y2]="line.y2"
+    stroke="red"
+    stroke-width="2"
+    marker-end='url(#arrowhead)'>
+    </line>
+
+    <path
+    d="M100 100 L165 165 L200 200"
+    stroke-width="3"
+    stroke="black"
+    marker-mid='url(#arrowhead)'>
+
+    </path>
+
+    <circle *ngFor="let circle of circles"
+    [attr.cx]="circle.cx"
+    [attr.cy]="circle.cy"
+    [attr.r]="10"
+    fill="black">
+    </circle>
+
+   
+
+    </svg>
